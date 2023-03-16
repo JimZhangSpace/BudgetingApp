@@ -1,4 +1,4 @@
-package com.zj.budgetingapp.entity
+package com.zj.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

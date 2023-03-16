@@ -1,9 +1,9 @@
-package com.zj.budgetingapp.dao
+package com.zj.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.zj.budgetingapp.entity.Budget
+import com.zj.db.entity.Budget
 
 @Dao
 interface BudgetDao {
