@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "BudgetingApp"
 include ':app'
 include ':database'
+include ':net'

@@ -7,4 +7,7 @@ plugins {
 
 ext{
     roomVersion = '2.3.0'
+    lifecycleVersion = '2.4.0'
+    workVersion = '2.7.0'
+    gsonVersion = '2.8.5'
 }

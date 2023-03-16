@@ -6,13 +6,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
+import com.zj.db.SeedDatabaseWorker.Companion.KEY_FILENAME
 import com.zj.db.dao.BudgetDao
 import com.zj.db.dao.UserDao
 import com.zj.db.entity.Budget
 import com.zj.db.entity.User
 
 const val DATABASE_NAME = "budgets"
-@Database(entities = [User::class, Budget::class], version = 1)
+const val BUDGET_DATA_FILENAME = "budgets.json"
+@Database(entities = [User::class, Budget::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -35,6 +40,11 @@ abstract class AppDatabase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         Log.d("AppDatabase","onCreate")
+                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>()
+                            .setInputData(workDataOf(
+                                KEY_FILENAME to BUDGET_DATA_FILENAME))
+                            .build()
+                        WorkManager.getInstance(context).enqueue(request)
                     }
 
                     override fun onOpen(db: SupportSQLiteDatabase) {

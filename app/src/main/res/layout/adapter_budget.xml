@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="transaction"
+            type="com.zj.budgetingapp.Transaction" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{transaction.name}"
+            tools:text="Sina" />
+
+        <TextView
+            android:id="@+id/usd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@id/cny"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text='@{"usd:" + transaction.usd}'
+            tools:text="usd" />
+
+        <TextView
+            android:id="@+id/cny"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/usd"
+            android:text='@{"cny:" + transaction.cny}'
+            tools:text="cny" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
