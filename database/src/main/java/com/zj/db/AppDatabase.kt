@@ -17,7 +17,7 @@ import com.zj.db.entity.User
 
 const val DATABASE_NAME = "budgets"
 const val BUDGET_DATA_FILENAME = "budgets.json"
-@Database(entities = [User::class, Budget::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Budget::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -51,7 +51,7 @@ abstract class AppDatabase : RoomDatabase() {
                         super.onOpen(db)
                         Log.d("AppDatabase","onOpen")
                     }
-                })
+                }).fallbackToDestructiveMigration()
                 .build()
         }
     }

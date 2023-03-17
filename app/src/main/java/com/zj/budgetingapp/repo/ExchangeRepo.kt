@@ -4,5 +4,6 @@ import com.zj.net.USDCNYRate
 
 interface ExchangeRepo {
 
-    fun getExchangeRate():USDCNYRate
+    suspend fun getExchangeRate(source:String,currency:String):USDCNYRate
+
 }

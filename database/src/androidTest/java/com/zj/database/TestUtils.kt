@@ -12,7 +12,7 @@ object TestUtils {
     }
 
     fun createBudget(): Budget {
-        val orderNum = Random.nextLong(100, 1000).toString()
-        return Budget(orderNum, 10f)
+        val orderNum = Random.nextLong(100, 1000)
+        return Budget(orderNum, "testing",10f)
     }
 }

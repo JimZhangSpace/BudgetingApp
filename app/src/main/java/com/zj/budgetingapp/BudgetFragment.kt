@@ -44,12 +44,9 @@ class BudgetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.transaction.apply {
-            this.adapter = transactionAdapter
-            this.layoutManager = LinearLayoutManager(this@BudgetFragment.requireContext(),LinearLayoutManager.VERTICAL,false)
-        }
+        binding.adapter = transactionAdapter
         budgetViewModel.allBudget.observe(this) {list->
-            transactionAdapter.submitList(list)
+           transactionAdapter.submitList(list)
         }
     }
 

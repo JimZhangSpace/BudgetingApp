@@ -36,8 +36,8 @@ class SeedDatabaseWorker(
             if (filename != null) {
                 applicationContext.assets.open(filename).use { inputStream ->
                     com.google.gson.stream.JsonReader(inputStream.reader()).use { jsonReader ->
-                        val plantType = object : TypeToken<List<Budget>>() {}.type
-                        val budgetList: List<Budget> = Gson().fromJson(jsonReader, plantType)
+                        val budgetType = object : TypeToken<List<Budget>>() {}.type
+                        val budgetList: List<Budget> = Gson().fromJson(jsonReader, budgetType)
 
                         val database = AppDatabase.getInstance(applicationContext)
                         database.budgetDao().insertAll(budgetList)
@@ -57,6 +57,6 @@ class SeedDatabaseWorker(
 
     companion object {
         private const val TAG = "SeedDatabaseWorker"
-        const val KEY_FILENAME = "PLANT_DATA_FILENAME"
+        const val KEY_FILENAME = "BUDGET_DATA_FILENAME"
     }
 }
