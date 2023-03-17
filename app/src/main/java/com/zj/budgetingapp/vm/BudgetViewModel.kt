@@ -1,20 +1,23 @@
 package com.zj.budgetingapp.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.zj.budgetingapp.Transaction
 import com.zj.budgetingapp.repo.BudgetRepo
 import com.zj.budgetingapp.repo.ExchangeRepo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRepo: ExchangeRepo) :
     ViewModel() {
 
     val exchangeFlow = flow {
-        val exchange = exchangeRepo.getExchangeRate("US", "CNY")
+        val exchange = exchangeRepo.getExchangeRate("USD", "CNY")
         emit(exchange)
     }
 
@@ -23,6 +26,7 @@ class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRe
         exchangeFlow.map { budget ->
             list.map { item ->
                 // TODO: can't get exchange rate
+                Log.d("BudgetViewModel","current thread"+Thread.currentThread())
                 val cny = budget.quotes?.let { (it.USDCNY * item.budget).toString() } ?: "--"
                 Transaction(
                     item.name,
@@ -32,7 +36,7 @@ class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRe
             }
         }
 
-    }.asLiveData()
+    }.flowOn(Dispatchers.IO).asLiveData()
 
 
 }
