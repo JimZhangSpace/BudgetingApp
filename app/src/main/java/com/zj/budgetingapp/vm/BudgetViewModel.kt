@@ -14,27 +14,19 @@ class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRe
     ViewModel() {
 
     val exchangeFlow = flow {
-        val exchange = exchangeRepo.getExchangeRate("USD", "CNY")
+        val exchange = exchangeRepo.getExchangeRate("US", "CNY")
         emit(exchange)
     }
-
-//    val allBudget = budgetRepo.getAll().map { list ->
-//        list.map { item ->
-//            Transaction(
-//                item.name,
-//                item.budget.toString(),
-//                (item.budget * 6.8f).toString()
-//            )
-//        }
-//    }.asLiveData()
 
     val allBudget  = budgetRepo.getAll().flatMapMerge { list ->
 
         exchangeFlow.map { budget ->
             list.map { item ->
+                // TODO: can't get exchange rate
+                val cny = budget.quotes?.let { (it.USDCNY * item.budget).toString() } ?: "--"
                 Transaction(
                     item.name,
-                    (budget.quotes.USDCNY * item.budget).toString(),
+                    cny,
                     item.budget.toString(),
                 )
             }

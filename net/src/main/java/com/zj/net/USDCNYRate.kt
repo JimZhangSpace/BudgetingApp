@@ -5,10 +5,10 @@ package com.zj.net
  * USD->CNY
  * */
 data class USDCNYRate(
-    val quotes: Quotes,
-    val source: String,
+    val quotes: Quotes?,
+    val source: String?,
     val success: Boolean,
-    val timestamp: Int
+    val timestamp: Int?
 )
 
 data class Quotes(

@@ -32,7 +32,7 @@
             app:layout_constraintStart_toEndOf="@id/name"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="20dp"
-            android:text='@{"usd:" + transaction.usd}'
+            android:text='@{"USD:" + transaction.usd}'
             tools:text="usd" />
 
         <TextView
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toEndOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/usd"
             android:layout_marginLeft="20dp"
-            android:text='@{"cny:" + transaction.cny}'
+            android:text='@{"CNY:" + transaction.cny}'
             tools:text="cny" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
