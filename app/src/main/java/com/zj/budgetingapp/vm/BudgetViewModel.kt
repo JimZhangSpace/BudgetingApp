@@ -26,7 +26,6 @@ class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRe
         exchangeFlow.map { budget ->
             list.map { item ->
                 // TODO: can't get exchange rate
-                Log.d("BudgetViewModel","current thread"+Thread.currentThread())
                 val cny = budget.quotes?.let { (it.USDCNY * item.budget).toString() } ?: "--"
                 Transaction(
                     item.name,
@@ -34,7 +33,7 @@ class BudgetViewModel(private val budgetRepo: BudgetRepo, private val exchangeRe
                     item.budget.toString(),
                 )
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
     }.flowOn(Dispatchers.IO).asLiveData()
 
